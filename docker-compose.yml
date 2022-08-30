@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  be_boilerplate:
+    image: 'postgres:11.17-alpine'
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    ports:
+    - '5432:5432'
