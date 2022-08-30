@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  OneToMany
 } from 'typeorm';
+import { Report } from './Report';
 
 @Entity('users')
 export class User {
@@ -46,4 +48,10 @@ export class User {
   checkIfPasswordMatch(unencryptedPassword: string) {
     return bcrypt.compareSync(unencryptedPassword, this.password);
   }
+
+  @OneToMany(
+    () => Report,
+    report => report.user
+  )
+  reports: Report[];
 }

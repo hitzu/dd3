@@ -4,9 +4,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  OneToMany
 } from 'typeorm';
-
+import { Report } from './Report';
 @Entity('words')
 export class Word {
   @PrimaryGeneratedColumn()
@@ -27,4 +28,10 @@ export class Word {
   @Column()
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(
+    () => Report,
+    report => report.word
+  )
+  reports: Report[];
 }

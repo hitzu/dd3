@@ -45,7 +45,7 @@ export const generate = (
   );
 };
 
-export const verify = (token: string, ip: string): Promise<TokenData> => {
+export const verify = (token: string): Promise<TokenData> => {
   return new Promise<TokenData>((resolve, reject) => {
     try {
       const tokenEncryptedData = JWT.verify(
@@ -69,10 +69,10 @@ export const verify = (token: string, ip: string): Promise<TokenData> => {
   });
 };
 
-export const decode = (token: string, ip: string): Promise<TokenData> => {
+export const decode = (token: string): Promise<TokenData> => {
   return new Promise(async (resolve, reject) => {
     try {
-      let verifiedToken: TokenData = await verify(token, ip);
+      let verifiedToken: TokenData = await verify(token);
       return resolve(verifiedToken);
     } catch (error) {
       return reject(error);

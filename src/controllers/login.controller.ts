@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
 import { generate } from '../services/token';
-import { loginResponseSchema } from '../schemas';
-import { validate } from '../services/validation';
 import { userCommands } from '../orm/commands/user';
 import { GeneralError } from '../classes/general-error';
-import { User } from '../orm/entities/User';
+import { validate } from '../services/validation';
+import { loginResponseSchema } from '../schemas';
 
 export const swLogInFunction = {
   summary: 'nos permite logearnos en la app',
@@ -48,17 +47,19 @@ const logIn = async (req: Request, res: Response) => {
       userFound.username
     );
 
-    res.status(200).send({
+    const finalResponse = {
       token,
       user: {
         id: userFound.id,
         email: userFound.email,
         username: userFound.username
       }
-    });
+    };
+    await validate(finalResponse, loginResponseSchema);
+
+    res.status(200).send(finalResponse);
   } catch (error) {
-    console.log('error', error);
-    res.status(500).send({ error: error.message });
+    res.status(error.code).send(error);
   }
 };
 
