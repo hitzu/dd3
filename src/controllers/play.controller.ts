@@ -78,14 +78,14 @@ const getWord = async (req: RequestCustom, res: Response) => {
       });
     } else {
       const customError = new GeneralError(
-        new Error('max number attends'),
+        new Error(wordS),
         'max number attends',
         400
       );
       throw customError;
     }
   } catch (error) {
-    res.status(error.code).send(error);
+    res.status(error.code | 500).send(error);
   }
 };
 
