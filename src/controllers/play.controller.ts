@@ -6,6 +6,27 @@ import { reportCommands } from '../orm/commands/report';
 import { GeneralError } from '../classes/general-error';
 import { IPoints, IPointsValues } from '../interfaces/play.interface';
 
+export const swWordFunction = {
+  summary: 'get word',
+  tags: ['play'],
+  responses: {
+    '200': {
+      description: `the user receive a word`
+    },
+    '400': {
+      description: `if the user have max intents or already answer with the correct word
+      receive a error message`
+    }
+  },
+  parameters: [
+    {
+      in: 'query',
+      name: 'word',
+      require: true
+    }
+  ]
+};
+
 const getWord = async (req: RequestCustom, res: Response) => {
   try {
     const { word } = req.query;

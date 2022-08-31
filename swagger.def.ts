@@ -1,4 +1,6 @@
 import { swLoginRouter } from './src/routes/login.route';
+import { swPlayRouter } from './src/routes/play.route';
+import { swReportRouter } from './src/routes/report.route';
 
 export const swDocument = {
   openapi: '3.0.0',
@@ -14,6 +16,8 @@ export const swDocument = {
     }
   ],
   paths: {
-    ...swLoginRouter
+    ...swLoginRouter,
+    ...swPlayRouter,
+    ...swReportRouter
   }
 };

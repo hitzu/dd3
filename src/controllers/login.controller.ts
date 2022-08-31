@@ -6,11 +6,11 @@ import { validate } from '../services/validation';
 import { loginResponseSchema } from '../schemas';
 
 export const swLogInFunction = {
-  summary: 'nos permite logearnos en la app',
+  summary: 'login',
   tags: ['auth'],
   responses: {
     '200': {
-      description: 'objeto con la informacion basica del usuario y el token'
+      description: 'get basic user information and token'
     }
   },
   parameters: [

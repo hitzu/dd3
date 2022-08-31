@@ -3,6 +3,16 @@ import { RequestCustom } from '../interfaces/start-options.interface';
 import { reportCommands } from '../orm/commands/report';
 import { GeneralError } from '../classes/general-error';
 
+export const swWordMetricsFunction = {
+  summary: 'top ten words',
+  tags: ['report'],
+  responses: {
+    '200': {
+      description: `get top ten word answered`
+    }
+  },
+  parameters: []
+};
 const getWordMetrics = async (req: RequestCustom, res: Response) => {
   try {
     const reports = await reportCommands.getWordTopTen();
@@ -12,6 +22,22 @@ const getWordMetrics = async (req: RequestCustom, res: Response) => {
   }
 };
 
+export const swUserMetricsFunction = {
+  summary: 'get user metrics',
+  tags: ['report'],
+  responses: {
+    '200': {
+      description: `receive the user info who id you provided`
+    }
+  },
+  parameters: [
+    {
+      in: 'query',
+      name: 'userId',
+      require: true
+    }
+  ]
+};
 const getUserMetrics = async (req: RequestCustom, res: Response) => {
   try {
     const userId = req.token.user_id;
@@ -34,6 +60,16 @@ const getUserMetrics = async (req: RequestCustom, res: Response) => {
   }
 };
 
+export const swTopUserMetricsFunction = {
+  summary: 'get word',
+  tags: ['report'],
+  responses: {
+    '200': {
+      description: `get top ten winners users`
+    }
+  },
+  parameters: []
+};
 const getTopUserMetrics = async (req: RequestCustom, res: Response) => {
   try {
     const reports = await reportCommands.getUserTopTen();
