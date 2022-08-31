@@ -7,7 +7,7 @@ Prueba tecnica para DD3 usando nodejs
 Usando git en tu maquina local debes de clonar el proyecto y moverte a la rama dev.
 
 ```
-git clone https://github.com/hitzu/poc-infosel.git
+git clone https://github.com/hitzu/dd3.git
 git checkout dev
 ```
 
@@ -27,7 +27,15 @@ Esto nos generara la carpeta node_modules y el archivo package_lock.json
 
 ### Correr proyecto 🏃‍♂️
 
-Usando los scripts que tenemos en el archivo packaje.json levantamos el proyecto con:
+Usando los scripts que tenemos en el archivo packaje.json:
+
+Levantaremos una base de datos local con docker compose, correremos los migrations y los seeds con el siguiente comando (requisito tener docker compose instalado en nuestra computadora)
+
+```
+npm run install
+```
+
+Y ahora levantaremos nuestro server usando nodemon para agilizar el desarrollo
 
 ```
 npm run start
@@ -46,13 +54,47 @@ POST
 }
 ```
 
+A partir de este momento todos los endpoints cuentan con una proteccion a nivel de servicio.
+
+se debera incluir en los header el campo authorization y el token que nos es devuelto en el servicio 1
+
+```
+authorization : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWQiOiJVMkZzZEdWa1gxOXlmY0ZZWE9lVVVvcGs0YThleE1aYjR2ZWdKWE15eDd5N29GTUIvVmlqV3ZSd2l2OU5IeFdXZVB2em56NDBmc3YrOVlEUkpGb2JhbjN5QmJrS08rc3VKSnasdasdhzbXJpb1BtcnZ6bUgvVVk1Y3pCZll5dmluZ0dJOCIsImlhdCI6MTY2MTg5NTMwNywiZXhwIjoxNjYyMDAzMzA3fQ.YEbftnMH9JsJasd_PacWkCEhhcRBumNCGasdasdplU-V5gauhocI
+```
+
+2. play/word: Nos pedira una palabra y nos indicara los aciertos y errores que tuvimos al intentar adivinar usando el sistema de puntuaciones dado en la prueba tecnica, si tenemos el maximo de intentos o ya adivinamos la palabra nos mostrara un mensaje de error
+
+```
+GET
+/play/word?word=perro
+```
+
+3. report/user: Nos brinda la informacion de juegos y de juegos ganados que ha realizado el usuario seleccionado.
+
+```
+GET
+/report/user?userId=1
+```
+
+4. report/top-ten-user: Nos brinda los mejores 10 jugadores a partir de palabras adivinadas.
+
+```
+GET
+/report/top-user
+```
+
+5. report/top-ten-wors: Nos brinda las 10 cartas que se han adivinado
+
+```
+GET
+/report/word
+```
+
 ## Documentacion 📖
 
 Con el servidor levantado podras visitar la pagina localhost:400/api-docs/ para visualizar la documentación
 
 ## Ejecutando las pruebas ⚙️
-
-Usando los scripts que tenemos en el archivo packaje.json levantamos el proyecto con:
 
 ```
 npm run test
